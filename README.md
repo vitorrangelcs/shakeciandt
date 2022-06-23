@@ -216,16 +216,33 @@ especificações.
 
 <h3>Regras de negócio</h3>
 <ul>
-    <li>Custo do Shake em relação ao Tamanho:</li>
+    <li><code>Shake</code>:</li>
     <ul>
-        <li>P: preco da Base original</li>
-        <li>M: preco da Base acrescentado de 30%</li>
-        <li>G: preco da Base acrescentado de 50%</li>         
+        <li>Regra 1: um <code>Shake</code> é composto obrigatoriamente de uma <code>Base</code>, uma <code>Fruta</code>, um <code>Topping</code>, um <code>TipoTamanho</code> e opcionalmente por uma <code>List&lt;Adicional&gt;</code></li>
     </ul>
-    <li>Custo do Shake em relação ao Tamanho:</li>
+    <li><code>Pedido</code>:</li>
     <ul>
-        <li>P: preco da Base original</li>
-        <li>M: preco da Base acrescentado de 30%</li>
-        <li>G: preco da Base acrescentado de 50%</li>         
+        <li>Regra 1: Quando adicionar um <code>ItemPedido</code> em um <code>Pedido</code> que já contenha um outro <code>ItemPedido</code> com o mesmo <code>Shake</code> nos dois <code>ItemPedido</code>, então o <code>Pedido</code> deve conter apenas um <code>ItemPedido</code>, porém com a <code>quantidade</code> atualizada do <code>Shake</code></li>
+        <li>Regra 2: O preço de um <code>Shake</code> é calculado com o valor da <code>Base</code> de acordo com o <code>TipoTamanho</code>, somado com o custo dos <code>adicionais</code></li>
+        <ul>
+            <li><code>P</code>: preco da <code>Base</code> original no <code>Cardapio</code></li>
+            <li><code>M</code>: preco da <code>Base</code> acrescentado de 30%</li>
+            <li><code>G</code>: preco da <code>Base</code> acrescentado de 50%</li>         
+        </ul>   
+        <li>Regra 3: O custo de um <code>Pedido</code> é o somatório do custo de todos os <code>Shake</code> precisentes nos <code>ItemPedido</code> desse <code>Pedido</code> (dica: <code>ItemPedido</code> possui um atributo <code>quantidade</code>)</li>
+        <li>Regra 4: A função <code>boolean removeItemPedido(ItemPedido itemPedidoRemovido)</code> deve lançar uma exceção do tipo <code>IllegalArgumentException</code> com a mensagem <code>Item nao existe no pedido.</code> caso o <code>ItemPedido</code> a ser removido não exista no <code>Pedido</code></li>
+    </ul>
+    <li><code>Cardapio</code>:</li>
+    <ul>
+        <li>Regra 1: O preco de um <code>Ingrediente</code> deve ser <code>maior que zero</code>, caso contrário irá disparar uma exceção do tipo <code>IllegalArgumentException</code> com a mensagem <code>Preco invalido.</code></li>
+        <li>Regra 2: Os métodos <code>boolean atualizarIngrediente(Ingrediente ingrediente,Double preco)</code>, <code>boolean removerIngrediente(Ingrediente ingrediente)</code> e <code>Double buscarPreco(Ingrediente ingrediente)</code> devem disparar uma exceção do tipo <code>IllegalArgumentException</code> com a mensagem <code>Ingrediente nao existe no cardapio.</code> caso o <code>Ingrediente</code> passado como parâmetro não exista no cardápio.</li>
     </ul>
 </ul>
+
+<h3>Desafio</h3>
+```
+O seu objetivo é fazer o código funcionar. 
+Para isso complete os métodos que estão sem implementação
+E faça as correções necessárias nos outros arquivos
+Sempre consultando a estrutura e as regras de negócio que foram passadas aqui.
+```

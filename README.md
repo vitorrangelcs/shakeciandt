@@ -246,3 +246,4 @@ Para isso complete os métodos que estão sem implementação
 E faça as correções necessárias nos outros arquivos
 Sempre consultando a estrutura e as regras de negócio que foram passadas aqui.
 ```
+

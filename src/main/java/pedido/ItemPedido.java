@@ -24,6 +24,21 @@ public class ItemPedido {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ItemPedido)) return false;
+
+        ItemPedido that = (ItemPedido) o;
+
+        return shake.equals(that.shake);
+    }
+
+    @Override
+    public int hashCode() {
+        return shake.hashCode();
+    }
+
+    @Override
     public String toString() {
         return this.shake + " / x" + this.quantidade;
     }

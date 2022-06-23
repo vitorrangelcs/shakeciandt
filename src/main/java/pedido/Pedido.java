@@ -1,5 +1,6 @@
 package pedido;
 
+import ingredientes.Adicional;
 import java.util.ArrayList;
 
 public class Pedido{
@@ -28,18 +29,44 @@ public class Pedido{
 
     public double calcularTotal(Cardapio cardapio){
         double total= 0;
-        //TODO
+        double totalItemPedido;
+
+        for(ItemPedido itemPedido:itens){
+            totalItemPedido = 0;
+            totalItemPedido+= cardapio.buscarPreco(itemPedido.getShake().getBase()) * itemPedido.getShake().getTipoTamanho().multiplicador ;
+            for(Adicional adicional: itemPedido.getShake().getAdicionais())
+                totalItemPedido+=cardapio.buscarPreco(adicional);
+            totalItemPedido = totalItemPedido * itemPedido.getQuantidade();
+
+            total += totalItemPedido;
+        }
+
         return total;
     }
 
     public void adicionarItemPedido(ItemPedido itemPedidoAdicionado){
-        //TODO
+        if(this.itens.contains(itemPedidoAdicionado)){
+            for(ItemPedido itemPedido:this.itens){
+                if(itemPedidoAdicionado.equals(itemPedido))
+                    itemPedido.setQuantidade(itemPedido.getQuantidade()+itemPedidoAdicionado.getQuantidade());
+            }
+        }
+        else {
+            itens.add(itemPedidoAdicionado);
+        }
     }
 
     public boolean removeItemPedido(ItemPedido itemPedidoRemovido) {
-        //substitua o true por uma condição
-        if (true) {
-            //TODO
+        if (this.itens.contains(itemPedidoRemovido)) {
+            for (ItemPedido itemPedido : this.itens) {
+                if (itemPedidoRemovido.equals(itemPedido)) {
+                    if (itemPedido.getQuantidade() - 1 == 0)
+                        this.itens.remove(itemPedido);
+                    else
+                        itemPedido.setQuantidade(itemPedido.getQuantidade() - 1);
+                    return true;
+                }
+            }
         } else {
             throw new IllegalArgumentException("Item nao existe no pedido.");
         }

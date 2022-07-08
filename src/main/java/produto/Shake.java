@@ -12,6 +12,25 @@ public class Shake {
     private List<Adicional> adicionais;
     private TipoTamanho  tipoTamanho;
 
+    public Shake(Base base,Fruta fruta,Topping topping,TipoTamanho tamanho){
+
+        this.base=base;
+        this.fruta= fruta;
+        this.topping=topping;
+        this.tipoTamanho=tamanho;
+        this.adicionais= new ArrayList<>();
+
+    }
+    public Shake(Base base,Fruta fruta,Topping topping,List<Adicional> adicionais,TipoTamanho tamanho){
+        this.base=base;
+        this.fruta= fruta;
+        this.topping=topping;
+        this.adicionais=adicionais;
+        this.tipoTamanho=tamanho;
+
+        this.adicionais.sort(null);
+    }
+
     public Base getBase() {
         return base;
     }

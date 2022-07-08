@@ -1,4 +1,4 @@
-# Projeto loja de Shakes 
+# ToTal Shakes
 
 ```
 Foi solicitado que fosse criado um sistema para uma Loja de Shakes, e você como desenvolvedor 

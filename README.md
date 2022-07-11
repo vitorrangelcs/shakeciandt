@@ -1,6 +1,11 @@
 # ToTal Shakes
 
 ```
+Guilherme Castilho Casassanta @gcastilho
+Vitor Rangel Carneiro da Silva @vitorrangel
+Andreus Dautro de Oliveira Brazil @andreus
+
+
 Foi solicitado que fosse criado um sistema para uma Loja de Shakes, e você como desenvolvedor 
 recebeu a tarefa de implementá-lo. E para isso você deve seguir as seguintes especificações.
 ```

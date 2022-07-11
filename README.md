@@ -3,7 +3,7 @@
 ```
 Guilherme Castilho Casassanta @gcastilho
 Vitor Rangel Carneiro da Silva @vitorrangel
-Andreus Dautro de Oliveira Brazil @andreus
+Andreus Daltro de Oliveira Brazil @andreus
 
 
 Foi solicitado que fosse criado um sistema para uma Loja de Shakes, e você como desenvolvedor 

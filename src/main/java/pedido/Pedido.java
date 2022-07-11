@@ -1,6 +1,10 @@
 package pedido;
 
+import exception.ItemNaoEncontradoException;
+
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Optional;
 
 public class Pedido{
 
@@ -27,23 +31,52 @@ public class Pedido{
     }
 
     public double calcularTotal(Cardapio cardapio){
-        double total= 0;
-        //TODO
+        final var total = itens.stream()
+                                        .map(pedido -> {
+                                                        final var shake = pedido.getShake();
+                                                        final var adicionais = Optional.ofNullable(shake.getAdicionais());
+                                                        final var precoBase = cardapio.buscarPreco(shake.getBase());
+                                                        final var precoAdicionais = adicionais.orElse(Collections.emptyList())
+                                                                                                        .stream()
+                                                                                                        .map(adicional -> cardapio.buscarPreco(adicional))
+                                                                                                        .reduce(0.0, Double::sum);
+                                                        final var acrescimo = shake.getTipoTamanho().multiplicador * precoBase;
+                                                        final var valorTotalShake = precoBase + acrescimo + precoAdicionais;
+                                                        return valorTotalShake * pedido.getQuantidade();
+                                        })
+                                        .reduce(0.0, Double::sum);
+
         return total;
     }
 
     public void adicionarItemPedido(ItemPedido itemPedidoAdicionado){
-        //TODO
+        final var itemIdx = itens.indexOf(itemPedidoAdicionado);
+        if (itemIdx != -1){
+            final var item = itens.get(itemIdx);
+            final var quantidade = item.getQuantidade();
+            item.setQuantidade(quantidade+1);
+            itens.set(itemIdx, item);
+        }else {
+            itens.add(itemPedidoAdicionado);
+        }
     }
 
     public boolean removeItemPedido(ItemPedido itemPedidoRemovido) {
-        //substitua o true por uma condição
-        if (true) {
-            //TODO
-        } else {
-            throw new IllegalArgumentException("Item nao existe no pedido.");
+        try {
+            final var itemIdx = itens.indexOf(itemPedidoRemovido);
+            final var item = itens.get(itemIdx);
+            final var quantidade = item.getQuantidade() - 1;
+            item.setQuantidade(quantidade);
+            if (quantidade > 0){
+                itens.set(itemIdx, item);
+            }else{
+                itens.remove(itemIdx);
+            }
+            return true;
         }
-        return false;
+        catch (Exception itemNaoEncontrado){
+            throw new ItemNaoEncontradoException();
+        }
     }
 
     @Override

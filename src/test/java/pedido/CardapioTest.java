@@ -1,5 +1,7 @@
 package pedido;
 
+import exception.IngredienteNaoEncontradoException;
+import exception.PrecoInvalidoException;
 import ingredientes.*;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -54,21 +56,21 @@ public class CardapioTest {
         Base base = new Base(TipoBase.Iorgute);
         Fruta fruta = new Fruta(TipoFruta.Morango);
 
-        try {
-            cardapio.adicionarIngrediente(base, -9.0);
-            fail("Excecao nao encontrada");
-        } catch (Throwable e) {
-            assertEquals("Preco invalido.", e.getMessage());
-            assertEquals(IllegalArgumentException.class, e.getClass());
-        }
+        Exception thrown = assertThrows(
+                PrecoInvalidoException.class,
+                () -> cardapio.adicionarIngrediente(base, -9.0),
+                "Excecao nao encontrada"
+        );
 
-        try {
-            cardapio.adicionarIngrediente(fruta, 0.0);
-            fail("Excecao nao encontrada");
-        } catch (Throwable e) {
-            assertEquals("Preco invalido.", e.getMessage());
-            assertEquals(IllegalArgumentException.class, e.getClass());
-        }
+        Exception thrown2 = assertThrows(
+                PrecoInvalidoException.class,
+                () -> cardapio.adicionarIngrediente(fruta, 0.0),
+                "Excecao nao encontrada"
+        );
+
+        assertEquals("Preco invalido.", thrown.getMessage());
+        assertEquals("Preco invalido.", thrown2.getMessage());
+
     }
 
     @Test
@@ -97,21 +99,20 @@ public class CardapioTest {
         cardapio.adicionarIngrediente(base, 9.0);
         cardapio.adicionarIngrediente(fruta, 10.0);
 
-        try {
-            cardapio.atualizarIngrediente(new Base(TipoBase.Iorgute), -9.0);
-            fail("Excecao nao encontrada");
-        } catch (Throwable e) {
-            assertEquals("Preco invalido.", e.getMessage());
-            assertEquals(IllegalArgumentException.class, e.getClass());
-        }
+        Exception thrown = assertThrows(
+                PrecoInvalidoException.class,
+                () -> cardapio.atualizarIngrediente(new Base(TipoBase.Iorgute), -9.0),
+                "Excecao nao encontrada"
+        );
 
-        try {
-            cardapio.atualizarIngrediente(new Fruta(TipoFruta.Morango), 0.0);
-            fail("Excecao nao encontrada");
-        } catch (Throwable e) {
-            assertEquals("Preco invalido.", e.getMessage());
-            assertEquals(IllegalArgumentException.class, e.getClass());
-        }
+        Exception thrown2 = assertThrows(
+                PrecoInvalidoException.class,
+                () -> cardapio.atualizarIngrediente(new Fruta(TipoFruta.Morango), 0.0),
+                "Excecao nao encontrada"
+        );
+
+        assertEquals("Preco invalido.", thrown.getMessage());
+        assertEquals("Preco invalido.", thrown2.getMessage());
     }
 
     @Test
@@ -124,13 +125,13 @@ public class CardapioTest {
         cardapio.adicionarIngrediente(fruta, 10.0);
         cardapio.adicionarIngrediente(fruta, 10.0);
 
-        try {
-            cardapio.atualizarIngrediente(new Topping(TipoTopping.Mel), 19.0);
-            fail("Excecao nao encontrada");
-        } catch (Throwable e) {
-            assertEquals("Ingrediente nao existe no cardapio.", e.getMessage());
-            assertEquals(IllegalArgumentException.class, e.getClass());
-        }
+        Exception thrown = assertThrows(
+                IngredienteNaoEncontradoException.class,
+                () -> cardapio.atualizarIngrediente(new Topping(TipoTopping.Mel), 19.0),
+                "Excecao nao encontrada"
+        );
+
+        assertEquals("Ingrediente nao existe no cardapio.", thrown.getMessage());
     }
 
     @Test
@@ -164,16 +165,15 @@ public class CardapioTest {
     @Test
     void test_remover_ingredientes_exception_ingredienteInexistente(){
         Base base = new Base(TipoBase.Iorgute);
-
         cardapio.adicionarIngrediente(base, 1.0);
 
-        try {
-            cardapio.removerIngrediente(new Topping(TipoTopping.Mel));
-            fail("Excecao nao encontrada");
-        } catch (Throwable e) {
-            assertEquals("Ingrediente nao existe no cardapio.", e.getMessage());
-            assertEquals(IllegalArgumentException.class, e.getClass());
-        }
+        Exception thrown = assertThrows(
+                IngredienteNaoEncontradoException.class,
+                () -> cardapio.removerIngrediente(new Topping(TipoTopping.Mel)),
+                "Excecao nao encontrada"
+        );
+
+        assertEquals("Ingrediente nao existe no cardapio.", thrown.getMessage());
     }
 
     @Test
@@ -191,13 +191,13 @@ public class CardapioTest {
 
         cardapio.adicionarIngrediente(base, 1.0);
 
-        try {
-            cardapio.buscarPreco(new Base(TipoBase.Sorvete));
-            fail("Excecao nao encontrada");
-        } catch (Throwable e) {
-            assertEquals("Ingrediente nao existe no cardapio.", e.getMessage());
-            assertEquals(IllegalArgumentException.class, e.getClass());
-        }
+        Exception thrown = assertThrows(
+                IngredienteNaoEncontradoException.class,
+                () -> cardapio.buscarPreco(new Base(TipoBase.Sorvete)),
+                "Excecao nao encontrada"
+        );
+
+        assertEquals("Ingrediente nao existe no cardapio.", thrown.getMessage());
     }
 
 }

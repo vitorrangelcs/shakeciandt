@@ -23,7 +23,7 @@ public class Program {
         Topping mel = new Topping(TipoTopping.Mel);
         Topping aveia = new Topping(TipoTopping.Aveia);
 
-        cardapio.adicionarIngrediente(sorvete,10.0);
+        cardapio.adicionarIngrediente(sorvete,122.0);
         cardapio.adicionarIngrediente(iogurte,8.0);
         cardapio.adicionarIngrediente(banana,5.0);
         cardapio.adicionarIngrediente(morango,7.5);

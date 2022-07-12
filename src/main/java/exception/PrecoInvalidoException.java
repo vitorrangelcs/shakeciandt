@@ -1,8 +1,8 @@
 package exception;
 
 public class PrecoInvalidoException extends IllegalArgumentException {
-    private static final String msg = "Preco invalido.";
+    private static final String MSG = "Preco invalido.";
     public PrecoInvalidoException() {
-        super(msg);
+        super(MSG);
     }
 }

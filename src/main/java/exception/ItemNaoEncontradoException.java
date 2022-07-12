@@ -1,8 +1,8 @@
 package exception;
 
 public class ItemNaoEncontradoException extends IllegalArgumentException{
-    private static final String msg = "Item nao existe no pedido.";
+    private static final String MSG = "Item nao existe no pedido.";
     public ItemNaoEncontradoException() {
-        super(msg);
+        super(MSG);
     }
 }

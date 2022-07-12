@@ -1,6 +1,6 @@
 package ingredientes;
 
-public class Topping implements Adicional,Comparable<Ingrediente> {
+public class Topping implements Adicional<TipoTopping>,Comparable<Ingrediente<TipoTopping>> {
     private TipoTopping tipoTopping;
 
     public Topping(TipoTopping tipoTopping) {
@@ -37,7 +37,7 @@ public class Topping implements Adicional,Comparable<Ingrediente> {
     }
 
     @Override
-    public Enum obterTipo() {
+    public TipoTopping obterTipo() {
         return this.tipoTopping;
     }
 }

@@ -1,5 +1,7 @@
 package pedido;
 
+import exception.IngredienteNaoEncontradoException;
+import exception.PrecoInvalidoException;
 import ingredientes.Ingrediente;
 
 import java.util.TreeMap;
@@ -16,22 +18,31 @@ public class Cardapio {
     }
 
     public void adicionarIngrediente(Ingrediente ingrediente,Double preco){
-        //TODO
+        validarPreco(preco);
+        precos.put(ingrediente, preco);
     }
 
     public boolean atualizarIngrediente(Ingrediente ingrediente,Double preco){
-       //TODO
-        return true;
+        validarPreco(preco);
+        return precos.replace(ingrediente, buscarPreco(ingrediente), preco);
     }
 
     public boolean removerIngrediente(Ingrediente ingrediente){
-       //TODO
-        return true;
+       return precos.remove(ingrediente, buscarPreco(ingrediente));
     }
 
     public Double buscarPreco(Ingrediente ingrediente){
-        //TODO
-        return 0.0;
+        final var preco = precos.get(ingrediente);
+        if (preco != null){
+            return preco;
+        }
+        throw new IngredienteNaoEncontradoException();
+    }
+
+    public void validarPreco(Double preco){
+        if (preco <= 0){
+            throw new PrecoInvalidoException();
+        }
     }
 
     @Override

@@ -34,10 +34,9 @@ public class Pedido{
         final var total = itens.stream()
                                         .map(pedido -> {
                                                         final var shake = pedido.getShake();
-                                                        final var adicionais = Optional.ofNullable(shake.getAdicionais());
+                                                        final var adicionais = shake.getAdicionais();
                                                         final var precoBase = cardapio.buscarPreco(shake.getBase());
-                                                        final var precoAdicionais = adicionais.orElse(Collections.emptyList())
-                                                                                                        .stream()
+                                                        final var precoAdicionais = adicionais.stream()
                                                                                                         .map(adicional -> cardapio.buscarPreco(adicional))
                                                                                                         .reduce(0.0, Double::sum);
                                                         final var acrescimo = shake.getTipoTamanho().multiplicador * precoBase;
@@ -54,7 +53,7 @@ public class Pedido{
         if (itemIdx != -1){
             final var item = itens.get(itemIdx);
             final var quantidade = item.getQuantidade();
-            item.setQuantidade(quantidade+1);
+            item.setQuantidade(quantidade+itemPedidoAdicionado.getQuantidade());
             itens.set(itemIdx, item);
         }else {
             itens.add(itemPedidoAdicionado);

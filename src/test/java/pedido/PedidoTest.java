@@ -1,5 +1,7 @@
 package pedido;
 
+import exception.ItemNaoEncontradoException;
+import exception.PrecoInvalidoException;
 import ingredientes.*;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -9,9 +11,12 @@ import produto.Shake;
 import produto.TipoTamanho;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -60,8 +65,8 @@ public class PedidoTest{
             assertEquals(new Fruta(TipoFruta.Morango), item.getShake().getFruta());
             assertEquals(new Topping(TipoTopping.Mel), item.getShake().getTopping());
             assertEquals(2, item.getShake().getAdicionais().size());
-            assertEquals(new Topping(TipoTopping.Aveia), item.getShake().getAdicionais().get(0));
-            assertEquals(new Fruta(TipoFruta.Banana), item.getShake().getAdicionais().get(1));
+            assertTrue(item.getShake().getAdicionais().contains(new Fruta(TipoFruta.Banana)));
+            assertTrue(item.getShake().getAdicionais().contains(new Topping(TipoTopping.Aveia)));
             assertEquals(TipoTamanho.P, item.getShake().getTipoTamanho());
             assertEquals(1, item.getQuantidade());
         });
@@ -86,7 +91,7 @@ public class PedidoTest{
             assertEquals(new Base(TipoBase.Sorvete), item.getShake().getBase());
             assertEquals(new Fruta(TipoFruta.Morango), item.getShake().getFruta());
             assertEquals(new Topping(TipoTopping.Mel), item.getShake().getTopping());
-            assertEquals(new ArrayList<>(), item.getShake().getAdicionais());
+            assertEquals(Collections.emptySet(), item.getShake().getAdicionais());
             assertEquals(TipoTamanho.P, item.getShake().getTipoTamanho());
             assertEquals(3, item.getQuantidade());
         });
@@ -208,13 +213,13 @@ public class PedidoTest{
 
         pedido.adicionarItemPedido(itemPedido);
 
-        try{
-            pedido.removeItemPedido(itemPedidoRemovido);
-            fail("Excecao nao encontrada.");
-        }catch(Throwable e){
-            assertEquals("Item nao existe no pedido.", e.getMessage());
-            assertEquals(IllegalArgumentException.class, e.getClass());
-        }
+        Exception thrown = assertThrows(
+                ItemNaoEncontradoException.class,
+                () -> pedido.removeItemPedido(itemPedidoRemovido),
+                "Excecao nao encontrada"
+        );
+
+        assertEquals("Item nao existe no pedido.", thrown.getMessage());
     }
 
     @Test

@@ -1,6 +1,6 @@
 package ingredientes;
 
-public class Base implements Ingrediente,Comparable<Ingrediente>{
+public class Base implements Ingrediente<TipoBase>,Comparable<Ingrediente<TipoBase>>{
 
     private TipoBase tipoBase;
 
@@ -38,7 +38,7 @@ public class Base implements Ingrediente,Comparable<Ingrediente>{
     }
 
     @Override
-    public Enum obterTipo() {
+    public TipoBase obterTipo() {
         return this.tipoBase;
     }
 }

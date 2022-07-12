@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public class Cardapio {
-    private Map<Ingrediente,Double> precos;
+    private final Map<Ingrediente,Double> precos;
 
     public Cardapio(){
         this.precos = new TreeMap<>();

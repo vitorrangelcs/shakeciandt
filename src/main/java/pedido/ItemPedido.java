@@ -5,7 +5,7 @@ import produto.Shake;
 import java.util.Objects;
 
 public class ItemPedido {
-    private Shake shake;
+    private final Shake shake;
     private int quantidade;
 
     public ItemPedido(Shake shake, int quantidade) {

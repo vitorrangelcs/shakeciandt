@@ -30,7 +30,7 @@ public class Shake {
         return topping;
     }
 
-    public Collection<Adicional> getAdicionais() {
+    public Set<Adicional> getAdicionais() {
         return adicionais;
     }
 

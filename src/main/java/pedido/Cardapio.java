@@ -4,16 +4,17 @@ import exception.IngredienteNaoEncontradoException;
 import exception.PrecoInvalidoException;
 import ingredientes.Ingrediente;
 
+import java.util.Map;
 import java.util.TreeMap;
 
 public class Cardapio {
-    private TreeMap<Ingrediente,Double> precos;
+    private Map<Ingrediente,Double> precos;
 
     public Cardapio(){
-        this.precos= new TreeMap<>();
+        this.precos = new TreeMap<>();
     }
 
-    public TreeMap<Ingrediente, Double> getPrecos(){
+    public Map<Ingrediente, Double> getPrecos(){
         return this.precos;
     }
 

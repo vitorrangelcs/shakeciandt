@@ -4,21 +4,22 @@ import exception.ItemNaoEncontradoException;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 public class Pedido{
 
     private int id;
-    private  ArrayList<ItemPedido> itens;
+    private List<ItemPedido> itens;
     private Cliente cliente;
 
-    public Pedido(int id, ArrayList<ItemPedido> itens,Cliente cliente){
+    public Pedido(int id, List<ItemPedido> itens,Cliente cliente){
         this.id = id;
         this.itens=itens;
         this.cliente=cliente;
     }
 
-    public ArrayList<ItemPedido> getItens() {
+    public List<ItemPedido> getItens() {
         return itens;
     }
 

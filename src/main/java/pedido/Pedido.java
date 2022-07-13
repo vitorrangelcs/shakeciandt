@@ -1,6 +1,10 @@
 package pedido;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class Pedido{
 
@@ -27,13 +31,28 @@ public class Pedido{
     }
 
     public double calcularTotal(Cardapio cardapio){
-        double total= 0;
-        //TODO
-        return total;
+        return cardapio.getPrecos()
+                .values()
+                .stream()
+                .mapToDouble(v -> v)
+                .sum();
     }
 
     public void adicionarItemPedido(ItemPedido itemPedidoAdicionado){
-        //TODO
+        if (!itens.isEmpty()) {
+            for (int i = 0; i < itens.size(); i++) {
+                ItemPedido item = itens.get(i);
+                if (item.getShake() == itemPedidoAdicionado.getShake()){
+                    item.setQuantidade(itemPedidoAdicionado.getQuantidade());
+                }
+                else {
+                    itens.add(new ItemPedido(itemPedidoAdicionado.getShake(), itemPedidoAdicionado.getQuantidade()));
+                }
+            }
+        }
+        else {
+           itens.add(itemPedidoAdicionado);
+        }
     }
 
     public boolean removeItemPedido(ItemPedido itemPedidoRemovido) {

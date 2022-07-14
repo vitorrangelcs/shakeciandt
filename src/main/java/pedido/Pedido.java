@@ -57,13 +57,13 @@ public class Pedido{
     }
 
     public void removeItemPedido(ItemPedido itemPedidoRemovido) {
-
+        //REFATORAR
         var itemParaRemover = itens.stream().filter(itens -> itens.getShake().equals(itemPedidoRemovido.getShake())).findFirst();
 
         for (ItemPedido itemPedido : itens) {
             var shakeItem = itemPedido.getShake();
             var shakeRemover = itemPedidoRemovido.getShake();
-            if (itemPedido.equals(shakeRemover)){
+            if (shakeItem.equals(shakeRemover)){
                 if (itemPedido.getQuantidade() > itemPedidoRemovido.getQuantidade()) {
                     itemPedido.setQuantidade(itemPedido.getQuantidade() - itemPedidoRemovido.getQuantidade());
                     return;

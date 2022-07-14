@@ -58,6 +58,11 @@ public class Shake {
         if (this == o) return true;
         if (!(o instanceof Shake)) return false;
         Shake shake = (Shake) o;
-        return base.equals(shake.base) && fruta.equals(shake.fruta) && topping.equals(shake.topping) && Objects.equals(adicionais, shake.adicionais) && tipoTamanho == shake.tipoTamanho;
+        return Objects.equals(base, shake.base) && Objects.equals(fruta, shake.fruta) && Objects.equals(topping, shake.topping) && Objects.equals(adicionais, shake.adicionais) && tipoTamanho == shake.tipoTamanho;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(base, fruta, topping, adicionais, tipoTamanho);
     }
 }

@@ -41,6 +41,6 @@ public class ItemPedido {
 
     @Override
     public int hashCode() {
-        return Objects.hash(shake, quantidade);
+        return Objects.hash(shake);
     }
 }

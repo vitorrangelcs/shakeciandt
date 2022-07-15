@@ -153,8 +153,8 @@ public class PedidoTest{
                 TipoTamanho.P
         );
 
-        ItemPedido itemPedido = new ItemPedido(shake, 5);
-        ItemPedido itemPedidoRemovido = new ItemPedido(shakeRemovido, 3);
+        ItemPedido itemPedido = new ItemPedido(shake, 3);
+        ItemPedido itemPedidoRemovido = new ItemPedido(shakeRemovido, 10);
 
         pedido.adicionarItemPedido(itemPedido);
         pedido.removeItemPedido(itemPedidoRemovido);

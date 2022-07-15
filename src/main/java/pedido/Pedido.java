@@ -66,7 +66,7 @@ public class Pedido{
         }
     }
 
-    public void removeItemPedido(ItemPedido itemPedidoRemovido) {
+    public void removeItemPedido(ItemPedido itemPedidoRemovido) throws ItemNaoEncontradoException{
         final var shake = itemPedidoRemovido.getShake();
         final var itemExistente = itens.get(shake);
 

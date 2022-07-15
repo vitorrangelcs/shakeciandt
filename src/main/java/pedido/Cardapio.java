@@ -18,12 +18,12 @@ public class Cardapio {
         return this.precos;
     }
 
-    public void adicionarIngrediente(Ingrediente ingrediente,Double preco){
+    public void adicionarIngrediente(Ingrediente ingrediente,Double preco) throws PrecoInvalidoException{
         validarPreco(preco);
         precos.put(ingrediente, preco);
     }
 
-    public boolean atualizarIngrediente(Ingrediente ingrediente,Double preco){
+    public boolean atualizarIngrediente(Ingrediente ingrediente,Double preco) throws PrecoInvalidoException{
         validarPreco(preco);
         return precos.replace(ingrediente, buscarPreco(ingrediente), preco);
     }
@@ -32,7 +32,7 @@ public class Cardapio {
        return precos.remove(ingrediente, buscarPreco(ingrediente));
     }
 
-    public Double buscarPreco(Ingrediente ingrediente){
+    public Double buscarPreco(Ingrediente ingrediente) throws IngredienteNaoEncontradoException{
         final var preco = precos.get(ingrediente);
         if (preco != null){
             return preco;
@@ -40,7 +40,7 @@ public class Cardapio {
         throw new IngredienteNaoEncontradoException();
     }
 
-    public void validarPreco(Double preco){
+    public void validarPreco(Double preco) throws PrecoInvalidoException{
         if (preco <= 0){
             throw new PrecoInvalidoException();
         }

@@ -61,8 +61,8 @@ public class PedidoTest{
             assertEquals(new Fruta(TipoFruta.Morango), item.getShake().getFruta());
             assertEquals(new Topping(TipoTopping.Mel), item.getShake().getTopping());
             assertEquals(2, item.getShake().getAdicionais().size());
-            assertEquals(new Fruta(TipoFruta.Banana), item.getShake().getAdicionais().get(0));
-            assertEquals(new Topping(TipoTopping.Aveia), item.getShake().getAdicionais().get(1));
+            assertEquals(new Topping(TipoTopping.Aveia), item.getShake().getAdicionais().get(0));
+            assertEquals(new Fruta(TipoFruta.Banana), item.getShake().getAdicionais().get(1));
             assertEquals(TipoTamanho.P, item.getShake().getTipoTamanho());
             assertEquals(1, item.getQuantidade());
         });
@@ -142,7 +142,7 @@ public class PedidoTest{
         Shake shake = new Shake(new Base(TipoBase.Sorvete),
                 new Fruta(TipoFruta.Morango),
                 new Topping(TipoTopping.Mel),
-                new ArrayList<>(List.of(new Topping(TipoTopping.Aveia), new Fruta(TipoFruta.Banana))),
+                new ArrayList<>(List.of(new Fruta(TipoFruta.Banana), new Topping(TipoTopping.Aveia))),
                 TipoTamanho.P
         );
 
@@ -153,8 +153,8 @@ public class PedidoTest{
                 TipoTamanho.P
         );
 
-        ItemPedido itemPedido = new ItemPedido(shake, 3);
-        ItemPedido itemPedidoRemovido = new ItemPedido(shakeRemovido, 10);
+        ItemPedido itemPedido = new ItemPedido(shake, 5);
+        ItemPedido itemPedidoRemovido = new ItemPedido(shakeRemovido, 3);
 
         pedido.adicionarItemPedido(itemPedido);
         pedido.removeItemPedido(itemPedidoRemovido);

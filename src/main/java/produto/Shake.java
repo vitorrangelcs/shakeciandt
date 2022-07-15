@@ -2,9 +2,9 @@ package produto;
 
 import ingredientes.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 public class Shake {
     private Base base;
@@ -24,7 +24,7 @@ public class Shake {
         this.base = base;
         this.fruta = fruta;
         this.topping = topping;
-        this.adicionais = adicionais;
+        this.adicionais = adicionais.stream().sorted().collect(Collectors.toList());
         this.tipoTamanho = tipoTamanho;
     }
 
@@ -65,4 +65,5 @@ public class Shake {
     public int hashCode() {
         return Objects.hash(base, fruta, topping, adicionais, tipoTamanho);
     }
+
 }

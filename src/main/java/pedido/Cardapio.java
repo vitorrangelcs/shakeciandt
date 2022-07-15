@@ -23,20 +23,30 @@ public class Cardapio {
         precos.put(ingrediente, preco);
     }
 
-    public boolean atualizarIngrediente(Ingrediente<?> ingrediente,Double preco) throws PrecoInvalidoException{
+    public void atualizarIngrediente(Ingrediente<?> ingrediente,Double preco) throws PrecoInvalidoException, IngredienteNaoEncontradoException{
         validarPreco(preco);
-        return precos.replace(ingrediente, buscarPreco(ingrediente), preco);
+
+        final var isIngredienteAtualizado = precos.replace(ingrediente, buscarPreco(ingrediente), preco);
+        if (!isIngredienteAtualizado){
+            throw new IngredienteNaoEncontradoException();
+        }
     }
 
-    public boolean removerIngrediente(Ingrediente<?> ingrediente){
-       return precos.remove(ingrediente, buscarPreco(ingrediente));
+
+    public void removerIngrediente(Ingrediente<?> ingrediente){
+       final var isIngredienteRemovido = precos.remove(ingrediente, buscarPreco(ingrediente));
+       if (!isIngredienteRemovido){
+           throw new IngredienteNaoEncontradoException();
+       }
     }
 
     public Double buscarPreco(Ingrediente<?> ingrediente) throws IngredienteNaoEncontradoException{
         final var preco = precos.get(ingrediente);
+
         if (preco != null){
             return preco;
         }
+        
         throw new IngredienteNaoEncontradoException();
     }
 

@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class CardapioTest {
+class CardapioTest {
 
     Cardapio cardapio;
 
@@ -35,7 +35,7 @@ public class CardapioTest {
 
         assertEquals(3, cardapio.getPrecos().size());
 
-        for (Map.Entry<Ingrediente,Double> pair : cardapio.getPrecos().entrySet()) {
+        for (Map.Entry<Ingrediente<?>,Double> pair : cardapio.getPrecos().entrySet()) {
             if (contator == 0) {
                 assertEquals(new Base(TipoBase.IOGURTE), pair.getKey());
                 assertEquals(1.0, pair.getValue());
@@ -150,7 +150,7 @@ public class CardapioTest {
 
         assertEquals(2, cardapio.getPrecos().size());
 
-        for (Map.Entry<Ingrediente,Double> pair : cardapio.getPrecos().entrySet()) {
+        for (Map.Entry<Ingrediente<?>,Double> pair : cardapio.getPrecos().entrySet()) {
             if (contator == 0) {
                 assertEquals(new Topping(TipoTopping.MEL), pair.getKey());
                 assertEquals(10.0, pair.getValue());

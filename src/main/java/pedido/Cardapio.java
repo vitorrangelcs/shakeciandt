@@ -8,31 +8,31 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public class Cardapio {
-    private final Map<Ingrediente,Double> precos;
+    private final Map<Ingrediente<?>,Double> precos;
 
     public Cardapio(){
         this.precos = new TreeMap<>();
     }
 
-    public Map<Ingrediente, Double> getPrecos(){
+    public Map<Ingrediente<?>, Double> getPrecos(){
         return this.precos;
     }
 
-    public void adicionarIngrediente(Ingrediente ingrediente,Double preco) throws PrecoInvalidoException{
+    public void adicionarIngrediente(Ingrediente<?> ingrediente,Double preco) throws PrecoInvalidoException{
         validarPreco(preco);
         precos.put(ingrediente, preco);
     }
 
-    public boolean atualizarIngrediente(Ingrediente ingrediente,Double preco) throws PrecoInvalidoException{
+    public boolean atualizarIngrediente(Ingrediente<?> ingrediente,Double preco) throws PrecoInvalidoException{
         validarPreco(preco);
         return precos.replace(ingrediente, buscarPreco(ingrediente), preco);
     }
 
-    public boolean removerIngrediente(Ingrediente ingrediente){
+    public boolean removerIngrediente(Ingrediente<?> ingrediente){
        return precos.remove(ingrediente, buscarPreco(ingrediente));
     }
 
-    public Double buscarPreco(Ingrediente ingrediente) throws IngredienteNaoEncontradoException{
+    public Double buscarPreco(Ingrediente<?> ingrediente) throws IngredienteNaoEncontradoException{
         final var preco = precos.get(ingrediente);
         if (preco != null){
             return preco;

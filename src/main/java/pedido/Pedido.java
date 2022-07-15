@@ -1,8 +1,11 @@
 package pedido;
 
+import ingredientes.Adicional;
+import produto.Shake;
+
 import java.util.ArrayList;
 
-public class Pedido{
+public class Pedido {
 
     private int id;
     private  ArrayList<ItemPedido> itens;
@@ -27,23 +30,41 @@ public class Pedido{
     }
 
     public double calcularTotal(Cardapio cardapio){
-        double total= 0;
-        //TODO
+        double total= 0.0;
+        for (ItemPedido item:itens) {
+            Shake shake = item.getShake();
+            double base = cardapio.buscarPreco(shake.getBase()) * (shake.getTipoTamanho().multiplicador);
+            double adicionaTotal = 0.0;
+            if (shake.getAdicionais() != null) {
+                for (Adicional adicional : shake.getAdicionais()) {
+                    adicionaTotal += cardapio.buscarPreco(adicional);
+                }
+            }
+            total += (base + adicionaTotal) * item.getQuantidade();
+        }
         return total;
     }
 
     public void adicionarItemPedido(ItemPedido itemPedidoAdicionado){
-        //TODO
+        for (ItemPedido item:itens) {
+            if (item.getShake().equals(itemPedidoAdicionado.getShake())) {
+                item.setQuantidade(item.getQuantidade() + itemPedidoAdicionado.getQuantidade());
+                return;
+            }
+        }
+
+        this.itens.add(itemPedidoAdicionado);
     }
 
     public boolean removeItemPedido(ItemPedido itemPedidoRemovido) {
-        //substitua o true por uma condição
-        if (true) {
-            //TODO
+
+        boolean foiRemovido = this.itens.remove(itemPedidoRemovido);
+
+        if (foiRemovido) {
+            return true;
         } else {
             throw new IllegalArgumentException("Item nao existe no pedido.");
         }
-        return false;
     }
 
     @Override
